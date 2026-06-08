@@ -1,0 +1,6 @@
+Log into the MSSQL service using mssqlclient.py and check if xp_cmdshell is enabled  
+
+python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30 -port 1433
+
+check whether xp_cmdshell is enabled in SQL Server
+SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell';
