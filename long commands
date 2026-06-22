@@ -21,8 +21,6 @@ find . -name filename 2>/dev/null
 find / -name "filename" 2>/dev/null
 
 
-
-
 **MOBILE-download all the apk packages - apart from 3rd party APKs**
 
 adb shell pm list packages -f | sed 's/package://' | while IFS='=' read apk pkg; do
